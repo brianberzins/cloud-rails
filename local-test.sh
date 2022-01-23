@@ -17,10 +17,9 @@ kubectl apply --filename kubernetes/local-deployment.yml
 
 
 # trying to troubleshoot on the CI system
-kubectl get pods -A
-sleep 300
-kubectl get pods -A
-kubectl describe pods -n cloud-ruby
+kubectl logs --selector  k8s-app=kube-proxy --namespace kube-system
+kubectl describe pods --selector  k8s-app=kube-proxy --namespace kube-system
+
 
 # wait for our application to be ready
 kubectl wait --namespace cloud-ruby --for=condition=ready pod --selector=app=cloud-ruby --timeout=300s
