@@ -13,6 +13,13 @@ kind load docker-image cloud-ruby:local
 
 # run our our local deployment (including namespace, deployment, service)
 kubectl apply --filename kubernetes/local-deployment.yml
+
+
+
+# trying to troubleshoot on the CI system
+sleep 45
+kubectl get pods -n cloud-ruby
+
 # wait for our application to be ready
 kubectl wait --namespace cloud-ruby --for=condition=ready pod --selector=app=cloud-ruby --timeout=60s
 
