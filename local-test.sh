@@ -17,11 +17,13 @@ kubectl apply --filename kubernetes/local-deployment.yml
 
 
 # trying to troubleshoot on the CI system
-sleep 45
-kubectl get pods -n cloud-ruby
+kubectl get pods -A
+sleep 300
+kubectl get pods -A
+kubectl describe pods -n cloud-ruby
 
 # wait for our application to be ready
-kubectl wait --namespace cloud-ruby --for=condition=ready pod --selector=app=cloud-ruby --timeout=60s
+kubectl wait --namespace cloud-ruby --for=condition=ready pod --selector=app=cloud-ruby --timeout=300s
 
 # test that we can get to the application
 curl --include --silent http://localhost:30123/hello-world | grep "200 OK"
