@@ -1,15 +1,15 @@
 #!/bin/bash
 set -ex
 
-# this appears to be the error that I'm seeing
-# https://github.com/kubernetes-sigs/kind/issues/2240
-
 kind --version
-# delete any previous kind cluster
-kind delete cluster || true
-# create a local kind cluster
-kind create cluster --config kubernetes/kind-config.yml
-
+docker --version
+kubectl --version
+#
+## delete any previous kind cluster
+#kind delete cluster || true
+## create a local kind cluster
+#kind create cluster --config kubernetes/kind-config.yml
+#
 ## build the docker image
 #docker build --tag cloud-ruby:local .
 ## load the docker image locally into kind
