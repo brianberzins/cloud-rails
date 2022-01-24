@@ -16,6 +16,7 @@ kubectl apply --filename kubernetes/local-deployment.yml
 
 # wait for our application to be ready
 kubectl wait --namespace cloud-ruby --for=condition=ready pod --selector=app=cloud-ruby --timeout=30s
+sleep 5
 
 # test that we can get to the application
 curl --include --silent http://localhost:30123/hello-world | grep "200 OK"
