@@ -37,13 +37,13 @@ spec:
             httpGet:
               path: /hello-world
               port: 4567
-            initialDelaySeconds: 10
+            initialDelaySeconds: 5
             periodSeconds: 2
           readinessProbe:
             httpGet:
               path: /hello-world
               port: 4567
-            initialDelaySeconds: 10
+            initialDelaySeconds: 2
             periodSeconds: 2
 
 ---
