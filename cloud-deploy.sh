@@ -1,8 +1,10 @@
 #!/bin/bash
-set -ex
+set -e +x
 
 # write kube config file
+mkdir ~/.kube
 echo -n $KUBECONFIG_BASE64_CONTENTS | base64 -d > ~/.kube/config
+set -x
 
 # override "latest" tag with a more specific one
 sed -i "s~brianberzins/cloud-ruby:latest~${IMAGE_TAG}~" kubernetes/cloud-deployment.yml
