@@ -1,4 +1,4 @@
-name: "Deploy to KinD"
+name: "CI/CD pipeline"
 on: [pull_request, push]
 
 jobs:
