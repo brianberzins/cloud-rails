@@ -1,0 +1,63 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cloud-ruby
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloud-ruby
+  namespace: cloud-ruby
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cloud-ruby
+  template:
+    metadata:
+      labels:
+        app: cloud-ruby
+    spec:
+      containers:
+        - name: application
+          image: brianberzins/cloud-ruby:latest
+          ports:
+            - containerPort: 4567
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 50m
+              memory: 32Mi
+          livenessProbe:
+            httpGet:
+              path: /hello-world
+              port: 4567
+            initialDelaySeconds: 5
+            periodSeconds: 2
+          readinessProbe:
+            httpGet:
+              path: /hello-world
+              port: 4567
+            initialDelaySeconds: 1
+            periodSeconds: 2
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: cloud-ruby
+  name: cloud-ruby
+spec:
+  selector:
+    app: cloud-ruby
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 4567
+
+---
+
