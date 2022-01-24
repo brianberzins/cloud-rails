@@ -3,7 +3,7 @@ set -e +x
 
 # write kube config file
 mkdir ~/.kube
-echo $KUBECONFIG_BASE64_CONTENTS | base64 -d > ~/.kube/config
+echo $KUBECONFIG_BASE64_CONTENTS | base64 --decode --ignore-garbage > ~/.kube/config
 set -x
 
 # override "latest" tag with a more specific one
