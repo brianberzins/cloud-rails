@@ -3,6 +3,21 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: cloud-ruby
+---
+apiVersion: com.ie.ibm.hpsys/v1alpha1
+kind: Dataset
+spec:
+  local:
+    bucket: cloud-ruby
+    endpoint: "https://s3.us-east-2.amazonaws.com/cloud-ruby"
+    readonly: "false"
+    region: us-east-2
+    secret-name: cluster-user-creds
+    secret-namespace: cloud-ruby
+    type: COS
+metadata:
+  name: s3-dataset
+  namespace: cloud-ruby
 
 ---
 apiVersion: apps/v1
@@ -48,6 +63,10 @@ spec:
               port: 4567
             initialDelaySeconds: 3
             periodSeconds: 2
+      volumes:
+        - name: s3-storage
+          persistentVolumeClaim:
+            claimName: s3-dataset
 
 ---
 apiVersion: v1
