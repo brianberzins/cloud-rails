@@ -32,6 +32,10 @@ spec:
             requests:
               cpu: 50m
               memory: 32Mi
+          volumeMounts:
+            - mountPath: /public
+              name: s3-storage
+              readOnly: false
           livenessProbe:
             httpGet:
               path: /hello-world
